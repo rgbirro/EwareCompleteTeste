@@ -1,0 +1,75 @@
+﻿@page
+@model EwareTeste.Pages.EditModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>Caminhao</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+         @if (Model.ErroValidacaoForm != null)
+        {
+            <div class="row text-center">
+                <div style="color: red">
+                    @Model.ErroValidacaoForm                    
+                </div>
+            </div>
+        }     
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Caminhao.Id" />
+            <div class="form-group">
+                <label asp-for="Caminhao.Nome" class="control-label"></label>
+                <input asp-for="Caminhao.Nome" class="form-control" />
+                <span asp-validation-for="Caminhao.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Caminhao.Descricao" class="control-label"></label>
+                <input asp-for="Caminhao.Descricao" class="form-control" />
+                <span asp-validation-for="Caminhao.Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Caminhao.ModeloId" class="control-label"></label>
+                @Html.DropDownListFor(m => m.Caminhao.ModeloId,
+                                    new SelectList(Model.ModelosCaminhao, "Id", "Descricao", "0"),
+                                    "Escolha um Modelo de Caminhão",
+                                    new { @class = "form-control", @id = "dropModelosCaminhao" })                
+                <span asp-validation-for="Caminhao.ModeloId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Caminhao.AnoFabricacao" class="control-label"></label>
+                <input asp-for="Caminhao.AnoFabricacao" class="form-control" />
+                <span asp-validation-for="Caminhao.AnoFabricacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Caminhao.AnoModelo" class="control-label"></label>
+                <input asp-for="Caminhao.AnoModelo" class="form-control" />
+                <span asp-validation-for="Caminhao.AnoModelo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>
